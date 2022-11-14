@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    ArrayList<String> urlList;
-    Button aURL;
+    ArrayList<String> imageUrlList;
+    Button addImgUrl;
     Button back_btn;
     Button forward_btn;
     EditText inputImageURl;
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        urlList = new ArrayList<String>();
-        urlList.add("https://d32qe1r3a676y7.cloudfront.net/eyJidWNrZXQiOiJibG9nLWVjb3RyZWUiLCJrZXkiOiAiYmxvZy8wMDAxLzAxL2FkNDZkYmI0NDdjZDBlOWE2YWVlY2Q2NGNjMmJkMzMyYjBjYmNiNzkuanBlZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6IDkwMCwiaGVpZ2h0IjowLCJmaXQiOiJjb3ZlciJ9fX0=");
-        urlList.add("https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg");
+        imageUrlList = new ArrayList<String>();
+        imageUrlList.add("https://d32qe1r3a676y7.cloudfront.net/eyJidWNrZXQiOiJibG9nLWVjb3RyZWUiLCJrZXkiOiAiYmxvZy8wMDAxLzAxL2FkNDZkYmI0NDdjZDBlOWE2YWVlY2Q2NGNjMmJkMzMyYjBjYmNiNzkuanBlZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6IDkwMCwiaGVpZ2h0IjowLCJmaXQiOiJjb3ZlciJ9fX0=");
+        imageUrlList.add("https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg");
 
 
         inputImageURl = findViewById(R.id.eUrl);
@@ -55,17 +55,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        aURL = findViewById(R.id.aURL);
-        aURL.setOnClickListener(new View.OnClickListener() {
+        addImgUrl = findViewById(R.id.aURL);
+        addImgUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String imageURl = inputImageURl.getText().toString();
                 if (imageURl.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter Image URL !!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    urlList.add(imageURl);
+                    imageUrlList.add(imageURl);
                     inputImageURl.setText("");
-                    Toast.makeText(getApplicationContext(), "SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added successfully !!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -74,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
     private void renderImageWhenOnclick(View view) {
         if (view == forward_btn) {
             currentImage++;
-            if (currentImage == urlList.size()) {
+            if (currentImage == imageUrlList.size()) {
                 currentImage = 0;
             }
         } else {
             if (currentImage == 0) {
-                currentImage = urlList.size();
+                currentImage = imageUrlList.size();
             }
             currentImage--;
         }
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadImage(int item) {
         Glide.with(MainActivity.this)
-                .load(urlList.get(item))
+                .load(imageUrlList.get(item))
                 .into(imageView);
     }
 }
